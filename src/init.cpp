@@ -110,7 +110,7 @@ static const char* DEFAULT_ASMAP_FILENAME="ip_asn.map";
 /**
  * The PID file facilities.
  */
-static const char* BITCOIN_PID_FILENAME = "bitcoind.pid";
+static const char* BITCOIN_PID_FILENAME = "ferrited.pid";
 
 static fs::path GetPidFile(const ArgsManager& args)
 {
@@ -599,7 +599,7 @@ void SetupServerArgs(NodeContext& node)
 std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/koh-gt/ferrite-core>";
-    const std::string URL_WEBSITE = "<http://www.ferritecoin.org>";
+    const std::string URL_WEBSITE = "<https://ferritecoin.org>";
     const std::string URL_BLOCK_EXPLORER = "<http://explorer.ferritecoin.org>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i").translated, 2022, COPYRIGHT_YEAR) + " ") +
@@ -1355,14 +1355,12 @@ bool AppInitMain(const util::Ref& context, NodeContext& node, interfaces::BlockA
                                     "# RPC settings (default: Local network only)\n"
                                     "rpcuser=user\n"
                                     "rpcpassword=password\n"
-                                    "port=9574\n"
                                     "rpcallowip=127.0.0.1\n"
                                     "rpcthreads=32\n"
                                     "\n"
                                     "# Relay and fee settings (default: 1 atom/vB)\n"
                                     "mintxfee=0.00001\n"
                                     "minrelaytxfee=0.00001\n"
-                                    "rpcconnect=500\n"
                                     "maxconnections=500\n"
                                     "\n"
                                     "# Depreciated RPCs for compatibility\n"
@@ -1385,6 +1383,27 @@ bool AppInitMain(const util::Ref& context, NodeContext& node, interfaces::BlockA
                                     "addnode=83.61.85.197:9574 # 2miningpool.com \n"
                                     "addnode=155.138.247.235:9574 # miningmypool.com \n"
                                     "addnode=155.133.26.223:9574 # zeusminingpool.com \n"
+                                    "\n"
+                                    "\n"
+                                    "# Testnet parameters: \n"
+                                    "# Change testnet=0 to testnet=1 and launch ferrite core \n"
+                                    "# to launch ferrite in testnet mode. \n"
+                                    "# You can run both mainnet and testnet nodes simultaneously \n"
+                                    "# Default: testnet = 0 (Testnet disabled)\n"
+                                    "testnet = 0\n"
+                                    "\n"
+                                    "[test]\n"
+                                    "daemon=1\n"
+                                    "server=1\n"
+                                    "txindex=1\n"
+                                    "mintxfee=0.00001\n"
+                                    "minrelaytxfee=0.00001\n"
+                                    "port=19574\n"
+                                    "addnode=118.189.201.104:19574\n"
+                                    "addnode=118.189.201.104:19588\n"
+                                    "addnode=118.189.201.104:19598\n"
+                                    "deprecatedrpc=accounts\n"
+                                    "deprecatedrpc=generate\n"
                                     "\n";
 
             fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
